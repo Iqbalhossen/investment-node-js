@@ -32,7 +32,7 @@ const  TeamSells =async(commision,user_name) => {
 
                 const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount, created_at: currentData };
 
-                // await TeamSellsModel.create(first);
+                await TeamSellsModel.create(first);
 
 
 
