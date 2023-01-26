@@ -22,7 +22,7 @@ const ViewDirectSells = async (req, res) => {
             success: true,
             data: newData,
         });
-        console.log(data)
+        // console.log(data)
 
 
     } catch (error) {
@@ -44,7 +44,7 @@ const viewGenerationAccept = async (req, res) => {
             data: newData,
         });
 
-        console.log(newData)
+        // console.log(newData)
 
     } catch (error) {
         console.log(error);
@@ -65,7 +65,7 @@ const viewTeamSellsAccept = async (req, res) => {
             data: newData,
         });
 
-        console.log(newData)
+        // console.log(newData)
 
     } catch (error) {
         console.log(error);
@@ -86,7 +86,7 @@ const viewRoiMintAccept = async (req, res) => {
             data: newData,
         });
 
-        console.log(newData)
+        // console.log(newData)
 
     } catch (error) {
         console.log(error);
