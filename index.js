@@ -17,7 +17,7 @@ app.use(express.json())
 
 // common file 
 
-// require('./Commonfile/UsdGenerateAutoCommsion');
+require('./Commonfile/UsdGenerateAutoCommsion');
 
 app.get('/', (req, res) => {
     res.send('Hello World!')

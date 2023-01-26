@@ -21,7 +21,7 @@ schedule.scheduleJob('*/1 * * * *', () => {
 
             const data = await UsdGenerate.find();
 
-                console.log(data);
+                // console.log(data);
 
                 
             let currentData = new Date();
@@ -29,15 +29,15 @@ schedule.scheduleJob('*/1 * * * *', () => {
 
             for (const userData of data) {
 
-                const TotalCommision = await UsdGenerateCommision.find(setCommision);
+                // const TotalCommision = await UsdGenerateCommision.find(setCommision);
 
-                let AmountSum = 0
-                for (let i = 0; i <= TotalCommision.length; i++) {
-                    if (TotalCommision[i]) {
-                        AmountSum += parseFloat(TotalCommision[i].commision);
-                    }
+                // let AmountSum = 0
+                // for (let i = 0; i <= TotalCommision.length; i++) {
+                //     if (TotalCommision[i]) {
+                //         AmountSum += parseFloat(TotalCommision[i].commision);
+                //     }
             
-                }
+                // }
 
                 // if(userData.total_profit === AmountSum){
 
