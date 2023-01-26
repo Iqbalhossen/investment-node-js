@@ -9,17 +9,20 @@ const { ObjectId } = require('mongodb');
 
 
 const ViewDirectSells = async (req, res) => {
-    const userId = req.params.userName;
+    const userId = req.params.username;
+    console.log(userId)
 
     try {
+        const acceptDeposit = { user_name: userId  };
 
 
-        const data = await DirectSells.find({ user_name: userId })
-        // newData = {data}
+        const data = await DirectSells.find(acceptDeposit)
+        newData = {data}
         res.status(201).json({
             success: true,
-            data: data,
+            data: newData,
         });
+        console.log(data)
 
 
     } catch (error) {
@@ -29,18 +32,19 @@ const ViewDirectSells = async (req, res) => {
 
 };
 const viewGenerationAccept = async (req, res) => {
-    const userId = req.params.userName;
+    const userId = req.params.username;
 
     try {
 
 
         const data = await Generation.find({ user_name: userId })
-        // newData = {data}
+        newData = {data}
         res.status(201).json({
             success: true,
-            data: data,
+            data: newData,
         });
 
+        console.log(newData)
 
     } catch (error) {
         console.log(error);
@@ -49,18 +53,19 @@ const viewGenerationAccept = async (req, res) => {
 
 };
 const viewTeamSellsAccept = async (req, res) => {
-    const userId = req.params.userName;
+    const userId = req.params.username;
 
     try {
 
 
         const data = await TeamSells.find({ user_name: userId })
-        // newData = {data}
+        newData = {data}
         res.status(201).json({
             success: true,
-            data: data,
+            data: newData,
         });
 
+        console.log(newData)
 
     } catch (error) {
         console.log(error);
@@ -69,18 +74,19 @@ const viewTeamSellsAccept = async (req, res) => {
 
 };
 const viewRoiMintAccept = async (req, res) => {
-    const userId = req.params.userName;
-
+    const userId = req.params.username;
+    console.log(userId)
     try {
+        const acceptDeposit = { user_name: userId  };
 
-
-        const data = await RoiMint.find({ user_name: userId })
-        // newData = {data}
+        const data = await RoiMint.find(acceptDeposit)
+        newData = {data}
         res.status(201).json({
             success: true,
-            data: data,
+            data: newData,
         });
 
+        console.log(newData)
 
     } catch (error) {
         console.log(error);
