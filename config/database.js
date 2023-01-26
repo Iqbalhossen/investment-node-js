@@ -1,6 +1,8 @@
 require('dotenv').config();
 const { default: mongoose } = require('mongoose');
 
+mongoose.set("strictQuery", false);
+
 const database = () => {
     try {
         const database = mongoose.connect(process.env.DATABASE, {

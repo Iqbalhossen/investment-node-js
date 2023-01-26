@@ -1,0 +1,378 @@
+const UsdGenerate = require('../models/UsdGenerateModel');
+const UsdGenerateCommision = require('../models/UsdGenerateCommisionModel');
+const InviteGenerationModel = require('../models//InviteGenerationModel');
+
+///////////////////////////// Usd Generate Commistion Section start
+
+const schedule = require('node-schedule');
+const sameDate = new Date();
+
+schedule.scheduleJob('*/1 * * * *', () => {
+
+async function run() {
+
+
+
+    try {
+
+        const data = await UsdGenerate.find();
+
+        let currentData = new Date();
+        // for Loop section Start
+
+        for (const userData of data) {
+
+            const commision = ((0.5 * parseFloat(userData.package_amount)) / 100);
+            // console.log(commision)
+
+            const setCommision = { user_name: userData.user_name, package_id: userData._id, commision: commision, created_at: currentData };
+
+            const UsdGenerate = await UsdGenerateCommision.create(setCommision);
+
+
+            console.log(UsdGenerate);
+
+            const exsitfirst = await InviteGenerationModel.findOne({ generation_user_name: userData.user_name });
+
+            // console.log(exsitfirst);
+            // Generation Section start
+
+
+            if (exsitfirst !== null) {
+
+
+                ///////////////// Fast Generation 
+
+                const amount = ((10 * parseFloat(userData.package_amount)) / 100);
+                // console.log(amount)
+
+                const first = { user_name: exsitfirst.user_name, generation_user_name: userName, commision: amount, generation: "L1", created_at: currentData };
+
+                await UsdGenerateCommision.create(first);
+
+
+
+                /////////////////// 2 Generation 
+
+
+                const existsecound = await InviteGenerationModel.findOne({ generation_user_name: exsitfirst.user_name });
+
+                // console.log(existsecound)
+                if (existsecound !== null) {
+
+                    const amount2 = ((7 * parseFloat(userData.package_amount)) / 100);
+                    // console.log(amount)
+
+                    const secound = { user_name: existsecound.user_name, generation_user_name: userName, commision: amount2, generation: "L2", created_at: currentData };
+
+                    const data = await UsdGenerateCommision.create(secound);
+
+                    // console.log(data)
+
+                    /////////////////// 3 Generation 
+
+                    const existthird = await InviteGenerationModel.findOne({ generation_user_name: existsecound.user_name });
+
+                    if (existthird !== null) {
+
+                        const amount3 = ((5 * parseFloat(userData.package_amount)) / 100);
+
+                        const thrid = { user_name: existthird.user_name, generation_user_name: userName, commision: amount3, generation: "L3", created_at: currentData };
+
+                        await UsdGenerateCommision.create(thrid);
+
+                        /////////////////// 4 Generation 
+
+
+                        const existfour = await InviteGenerationModel.findOne({ generation_user_name: existthird.user_name });
+
+                        if (existfour !== null) {
+
+
+                            const amount4 = ((3 * parseFloat(userData.package_amount)) / 100);
+
+                            const four = { user_name: existfour.user_name, generation_user_name: userName, commision: amount4, generation: "L4", created_at: currentData };
+
+                            await UsdGenerateCommision.create(four);
+
+                            /////////////////// 5 Generation 
+
+
+                            const existfive = await InviteGenerationModel.findOne({ generation_user_name: existfour.user_name });
+
+                            if (existfive !== null) {
+
+                                const amount5 = ((2 * parseFloat(userData.package_amount)) / 100);
+
+                                const five = { user_name: existfive.user_name, generation_user_name: userName, commision: amount5, generation: "L5", created_at: currentData };
+
+                                await UsdGenerateCommision.create(five);
+
+                                /////////////////// 6 Generation 
+
+
+                                const existsix = await InviteGenerationModel.findOne({ generation_user_name: existfive.user_name });
+
+                                if (existsix !== null) {
+
+                                    const amount5 = ((1 * parseFloat(userData.package_amount)) / 100);
+
+                                    const six = { user_name: existsix.user_name, generation_user_name: userName, commision: amount5, generation: "L6", created_at: currentData };
+
+                                    await UsdGenerateCommision.create(six);
+
+                                    /////////////////// 7 Generation 
+
+
+                                    const existseven = await InviteGenerationModel.findOne({ generation_user_name: existsix.user_name });
+
+                                    if (existseven !== null) {
+
+                                        const amount5 = ((1 * parseFloat(userData.package_amount)) / 100);
+
+                                        const seven = { user_name: existseven.user_name, generation_user_name: userName, commision: amount5, generation: "L7", created_at: currentData };
+
+                                        await UsdGenerateCommision.create(seven);
+
+                                        /////////////////// 8 Generation 
+
+
+                                        const existeight = await InviteGenerationModel.findOne({ generation_user_name: existseven.user_name });
+                                        if (existeight !== null) {
+
+                                            const amount5 = ((1 * parseFloat(userData.package_amount)) / 100);
+
+                                            const eight = { user_name: existeight.user_name, generation_user_name: userName, commision: amount5, generation: "L8", created_at: currentData };
+
+                                            await UsdGenerateCommision.create(eight);
+
+
+                                            /////////////////// 9 Generation 
+
+
+                                            const existnine = await InviteGenerationModel.findOne({ generation_user_name: existeight.user_name });
+
+                                            if (existnine !== null) {
+                                                const amount5 = ((1 * parseFloat(userData.package_amount)) / 100);
+
+                                                const nine = { user_name: existnine.user_name, generation_user_name: userName, commision: amount5, generation: "L9", created_at: currentData };
+
+                                                await UsdGenerateCommision.create(nine);
+
+                                                /////////////////// 10 Generation 
+
+
+                                                const existten = await InviteGenerationModel.findOne({ generation_user_name: existnine.user_name });
+                                                if (existten !== null) {
+                                                    const amount5 = ((1 * parseFloat(userData.package_amount)) / 100);
+
+                                                    const ten = { user_name: existten.user_name, generation_user_name: userName, commision: amount5, generation: "L10", created_at: currentData };
+
+                                                    await UsdGenerateCommision.create(ten);
+                                                }
+                                            }
+                                        }
+                                    }
+
+
+                                }
+
+
+                            }
+
+                        }
+
+
+                    }
+                }
+
+            }
+
+
+
+
+
+
+        }
+
+        // for Loop section End
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+run().catch(error => console.log(error));
+
+
+
+
+
+})
+
+
+
+
+
+
+////////////////////////////// Usd Generate Commistion Section End
+
+
+
+
+
+
+
+
+
+
+
+if (exsitfirst !== null) {
+
+
+    ///////////////// Fast Generation 
+
+    const amount = ((10 * parseFloat(depositAmount)) / 100);
+    // console.log(amount)
+
+    const first = { user_name: exsitfirst.user_name, generation_user_name: userName, commision: amount, generation: "L1", created_at: usdGenerate.created_at };
+
+    await UsdGenerateCommision.create(first);
+
+
+
+    /////////////////// 2 Generation 
+
+
+    const existsecound = await InviteGenerationModel.findOne({ generation_user_name: exsitfirst.user_name });
+
+    // console.log(existsecound)
+    if (existsecound !== null) {
+
+        const amount2 = ((7 * parseFloat(depositAmount)) / 100);
+        // console.log(amount)
+
+        const secound = { user_name: existsecound.user_name, generation_user_name: userName, commision: amount2, generation: "L2", created_at: usdGenerate.created_at };
+
+        const data = await UsdGenerateCommision.create(secound);
+
+        // console.log(data)
+
+        /////////////////// 3 Generation 
+
+        const existthird = await InviteGenerationModel.findOne({ generation_user_name: existsecound.user_name });
+
+        if (existthird !== null) {
+
+            const amount3 = ((5 * parseFloat(depositAmount)) / 100);
+
+            const thrid = { user_name: existthird.user_name, generation_user_name: userName, commision: amount3, generation: "L3", created_at: usdGenerate.created_at };
+
+            await UsdGenerateCommision.create(thrid);
+
+            /////////////////// 4 Generation 
+
+
+            const existfour = await InviteGenerationModel.findOne({ generation_user_name: existthird.user_name });
+
+            if (existfour !== null) {
+
+
+                const amount4 = ((3 * parseFloat(depositAmount)) / 100);
+
+                const four = { user_name: existfour.user_name, generation_user_name: userName, commision: amount4, generation: "L4", created_at: usdGenerate.created_at };
+
+                await UsdGenerateCommision.create(four);
+
+                /////////////////// 5 Generation 
+
+
+                const existfive = await InviteGenerationModel.findOne({ generation_user_name: existfour.user_name });
+
+                if (existfive !== null) {
+
+                    const amount5 = ((2 * parseFloat(depositAmount)) / 100);
+
+                    const five = { user_name: existfive.user_name, generation_user_name: userName, commision: amount5, generation: "L5", created_at: usdGenerate.created_at };
+
+                    await UsdGenerateCommision.create(five);
+
+                    /////////////////// 6 Generation 
+
+
+                    const existsix = await InviteGenerationModel.findOne({ generation_user_name: existfive.user_name });
+
+                    if (existsix !== null) {
+
+                        const amount5 = ((1 * parseFloat(depositAmount)) / 100);
+
+                        const six = { user_name: existsix.user_name, generation_user_name: userName, commision: amount5, generation: "L6", created_at: usdGenerate.created_at };
+
+                        await UsdGenerateCommision.create(six);
+
+                        /////////////////// 7 Generation 
+
+
+                        const existseven = await InviteGenerationModel.findOne({ generation_user_name: existsix.user_name });
+
+                        if (existseven !== null) {
+
+                            const amount5 = ((1 * parseFloat(depositAmount)) / 100);
+
+                            const seven = { user_name: existseven.user_name, generation_user_name: userName, commision: amount5, generation: "L7", created_at: usdGenerate.created_at };
+
+                            await UsdGenerateCommision.create(seven);
+
+                            /////////////////// 8 Generation 
+
+
+                            const existeight = await InviteGenerationModel.findOne({ generation_user_name: existseven.user_name });
+                            if (existeight !== null) {
+
+                                const amount5 = ((1 * parseFloat(depositAmount)) / 100);
+
+                                const eight = { user_name: existeight.user_name, generation_user_name: userName, commision: amount5, generation: "L8", created_at: usdGenerate.created_at };
+
+                                await UsdGenerateCommision.create(eight);
+
+
+                                /////////////////// 9 Generation 
+
+
+                                const existnine = await InviteGenerationModel.findOne({ generation_user_name: existeight.user_name });
+
+                                if (existnine !== null) {
+                                    const amount5 = ((1 * parseFloat(depositAmount)) / 100);
+
+                                    const nine = { user_name: existnine.user_name, generation_user_name: userName, commision: amount5, generation: "L9", created_at: usdGenerate.created_at };
+
+                                    await UsdGenerateCommision.create(nine);
+
+                                    /////////////////// 10 Generation 
+
+
+                                    const existten = await InviteGenerationModel.findOne({ generation_user_name: existnine.user_name });
+                                    if (existten !== null) {
+                                        const amount5 = ((1 * parseFloat(depositAmount)) / 100);
+
+                                        const ten = { user_name: existten.user_name, generation_user_name: userName, commision: amount5, generation: "L10", created_at: usdGenerate.created_at };
+
+                                        await UsdGenerateCommision.create(ten);
+                                    }
+                                }
+                            }
+                        }
+
+
+                    }
+
+
+                }
+
+            }
+
+
+        }
+    }
+
+}

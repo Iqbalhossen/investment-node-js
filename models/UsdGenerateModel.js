@@ -1,43 +1,39 @@
 const mongoose = require('mongoose'); // Erase if already required
 
 // Declare the Schema of the Mongo model
-var userSchema = new mongoose.Schema({
-    name:{
+var UsdGenerateSchema = new mongoose.Schema({
+    user_name:{
         type:String,
         required:true,
-         
+        
     },
-    email:{
-        type:String,
-        required:true,
-        unique:true,
-    },
-    userName:{
-        type:String,
-        required:true,
-        unique:true,
-    },
-    reference:{
+    package_id:{
         type:String,
         required:true,
     },
-    level:{
+    package_name:{
         type:String,
+        required:true,
     },
-    picture:{
+    package_amount:{
         type:String,
+        required:true,
+    },
+    TotalProfit:{
+        type:String,
+        required:true,
     },
     status:{
         type:Boolean,
     },
-    password:{
-        type:String,
-        required:true,
+    created_at: {
+        type:Date
     },
-    created_at:{
-        type:String,
+    update_at: {
+        type:Date
     },
+  
 });
 
 //Export the model
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('UsdGenerate', UsdGenerateSchema);
