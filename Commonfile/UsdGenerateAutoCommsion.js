@@ -11,7 +11,7 @@ RoiMint("i am Comming2 Roi Mint")
 const schedule = require('node-schedule');
 const sameDate = new Date();
 
-schedule.scheduleJob('*/1 * * * *', () => {
+schedule.scheduleJob('*/5 * * * *', () => {
 
     async function run() {
 
