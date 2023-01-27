@@ -4,10 +4,20 @@ const { ObjectId } = require('mongodb');
 
 
 const viewUser = async (req, res) => {
+    const userName = req.params.userName;
+    const id = req.params.id;
 
-    const newaa = await User.find()
+    const query =  {_id : ObjectId(id) , userName: userName };
 
-    res.send('User View Successful');
+    const data = await User.findOne(query)
+    // newData = {data}
+    res.status(201).json({
+        success: true,
+        message: "User Show",
+        data: data,
+    });
+
+console.log(data)
 }
 
 

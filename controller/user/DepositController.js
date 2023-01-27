@@ -54,7 +54,7 @@ const UserDepositStore = async (req, res) => {
             data: newData,
         });
 
-
+// console.log(newData)
 
     } catch (error) {
         console.log(error);

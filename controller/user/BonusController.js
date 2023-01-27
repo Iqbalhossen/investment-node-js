@@ -22,7 +22,7 @@ const ViewDirectSells = async (req, res) => {
             success: true,
             data: newData,
         });
-        // console.log(data)
+        console.log(data)
 
 
     } catch (error) {

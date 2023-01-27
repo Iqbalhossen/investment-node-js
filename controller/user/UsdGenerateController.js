@@ -1,10 +1,10 @@
 const UsdGenerate = require('../../models/UsdGenerateModel');
 const UsdGenerateCommision = require('../../models/UsdGenerateCommisionModel');
 const UsdGeneratePackage = require('../../models/UsdGeneratePackageModel');
-const {GenerationCommision} = require('../../Commonfile/GenerationCommision');
-const {DirectSells} = require('../../Commonfile/DirectSells');
-const {RoiMint }= require('./../../Commonfile/USDGenerate/RoiMint');
-const {TeamSells }= require('./../../Commonfile/TeamSells');
+const { GenerationCommision } = require('../../Commonfile/GenerationCommision');
+const { DirectSells } = require('../../Commonfile/DirectSells');
+const { RoiMint } = require('./../../Commonfile/USDGenerate/RoiMint');
+const { TeamSells } = require('./../../Commonfile/TeamSells');
 
 
 const { ObjectId } = require('mongodb');
@@ -18,7 +18,7 @@ const UsdGeneratePackageView = async (req, res) => {
             success: true,
             data: newData,
         });
-// console.log(newData)
+        // console.log(newData)
 
     } catch (error) {
         console.log(error);
@@ -96,7 +96,7 @@ const EarningUsdGenerate = async (req, res) => {
 
     try {
 
-        const query =  {_id : ObjectId(package_id)};
+        const query = { _id: ObjectId(package_id) };
 
         const data = await UsdGenerateCommision.find({ user_name: userId, package_id: package_id })
         const usdAmount = await UsdGenerate.findOne(query);
@@ -104,7 +104,7 @@ const EarningUsdGenerate = async (req, res) => {
         res.status(201).json({
             success: true,
             data: data,
-            usdAmount:usdAmount,
+            usdAmount: usdAmount,
         });
         // console.log(usdAmount);
 
@@ -153,7 +153,7 @@ const UserUsdGenerateStore = async (req, res) => {
         const package = await UsdGeneratePackage.findOne({ usd_generate_package_amount: depositAmount });
         console.log(package)
 
-        const AddUsdGenerate = { user_name: userName, package_name: package.usd_generate_package_name, package_id:package._id, package_amount:package.usd_generate_package_amount, TotalProfit:package.total_profit , status: 0 , created_at: sameDate };
+        const AddUsdGenerate = { user_name: userName, package_name: package.usd_generate_package_name, package_id: package._id, package_amount: package.usd_generate_package_amount, TotalProfit: package.total_profit, status: 0, created_at: sameDate };
 
 
         const data = await UsdGenerate.create(AddUsdGenerate);
@@ -165,26 +165,30 @@ const UserUsdGenerateStore = async (req, res) => {
         // Generation Section start
 
 
+
         const commision = ((0.5 * parseFloat(depositAmount)) / 100);
         // console.log(data)
 
-        const setCommision = { user_name: userName, package_id: data._id, commision: commision, created_at:sameDate };
+        const setCommision = { user_name: userName, package_id: data._id, commision: commision, created_at: sameDate };
 
 
 
 
         const aajf = await UsdGenerateCommision.create(setCommision);
 
+
+        
         ////////////////////////////////// DirectSells Section Start   ////////////////////////////////////
 
-    
+
 
         DirectSells(depositAmount, userName);
         TeamSells(depositAmount, userName);
         RoiMint(commision, userName);
-        GenerationCommision(commision,userName);
+        GenerationCommision(commision, userName);
 
         /////////////////////////////////// DirectSells Section End    //////////////////////////////////////
+
 
         // console.log(aajf)
 

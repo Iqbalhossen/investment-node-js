@@ -3,7 +3,7 @@ const route = express.Router();
 
 const {viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser} = require('./../../controller/user/userAuthenticationController');
 
-route.get('/view', viewUser);
+route.get('/view/:userName/:id', viewUser);
 route.post('/login', loginUser);
 route.post('/create', createUser);
 route.get('/invite/:userName/:id', InviteUser);
