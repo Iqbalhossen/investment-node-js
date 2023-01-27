@@ -185,8 +185,6 @@ const UserUsdGenerateStore = async (req, res) => {
         DirectSells(depositAmount, userName);
         TeamSells(depositAmount, userName);
         RoiMint(commision, userName);
-        GenerationCommision(commision, userName);
-
         /////////////////////////////////// DirectSells Section End    //////////////////////////////////////
 
 
