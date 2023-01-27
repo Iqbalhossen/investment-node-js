@@ -32,7 +32,7 @@ const  TeamSells =async(commision,user_name) => {
 
                 const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount, created_at: currentData };
 
-                await TeamSellsModel.create(first);
+                // await TeamSellsModel.create(first);
 
 
 
@@ -44,7 +44,7 @@ const  TeamSells =async(commision,user_name) => {
                 // console.log(existsecound)
                 if (existsecound !== null) {
 
-                    const amount2 = ((4* parseFloat(commision)) / 100);
+                    const amount2 = ((5* parseFloat(commision)) / 100);
                     // console.log(amount)
 
                     const secound = { user_name: existsecound.user_name, generation_user_name: user_name, commision: amount2,  created_at: currentData };
@@ -59,7 +59,7 @@ const  TeamSells =async(commision,user_name) => {
 
                     if (existthird !== null) {
 
-                        const amount3 = ((3 * parseFloat(commision)) / 100);
+                        const amount3 = ((4 * parseFloat(commision)) / 100);
 
                         const thrid = { user_name: existthird.user_name, generation_user_name: user_name, commision: amount3,  created_at: currentData };
 
@@ -73,7 +73,7 @@ const  TeamSells =async(commision,user_name) => {
                         if (existfour !== null) {
 
 
-                            const amount4 = ((2 * parseFloat(commision)) / 100);
+                            const amount4 = ((3 * parseFloat(commision)) / 100);
 
                             const four = { user_name: existfour.user_name, generation_user_name: user_name, commision: amount4, created_at: currentData };
 
@@ -86,13 +86,28 @@ const  TeamSells =async(commision,user_name) => {
 
                             if (existfive !== null) {
 
-                                const amount5 = ((1 * parseFloat(commision)) / 100);
+                                const amount5 = ((2  * parseFloat(commision)) / 100);
 
                                 const five = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount5,  created_at: currentData };
 
                                 await TeamSellsModel.create(five);
 
 
+                                const existsix = await InviteGenerationModel.findOne({ generation_user_name: existfive.user_name });
+
+                                if (existsix !== null) {
+    
+                                    const amount6 = ((1  * parseFloat(commision)) / 100);
+    
+                                    const six = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount6,  created_at: currentData };
+    
+                                    await TeamSellsModel.create(six);
+    
+    
+    
+    
+    
+                                }
 
 
 
