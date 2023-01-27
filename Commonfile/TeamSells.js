@@ -1,125 +1,140 @@
 const InviteGenerationModel = require('../models/InviteGenerationModel');
 const TeamSellsModel = require('../models/TeamSellsModel');
+const { GenerationCommision } = require('./GenerationCommision');
+
 
 ///////////////////////////// Usd Generate Commistion Section start
 
 
-const  TeamSells =async(commision,user_name) => {
+const TeamSells = async (commision, user_name) => {
 
     try {
-        
-    
+
+
 
         let currentData = new Date();
 
 
-            // console.log(`roi Mint Commision ${commision}`);
-            // console.log(`roi Mint user_name ${user_name}`);
+        // console.log(`roi Mint Commision ${commision}`);
+        // console.log(`roi Mint user_name ${user_name}`);
 
-            const exsitfirst = await InviteGenerationModel.findOne({ generation_user_name: user_name });
+        const exsitfirst = await InviteGenerationModel.findOne({ generation_user_name: user_name });
 
-            // console.log(exsitfirst);
-            // Generation Section start
-
-
-            if (exsitfirst !== null) {
+        // console.log(exsitfirst);
+        // Generation Section start
 
 
-                ///////////////// Fast Generation 
+        if (exsitfirst !== null) {
 
-                const amount = ((5* parseFloat(commision)) / 100);
+
+            ///////////////// Fast Generation 
+
+            const amount = ((5 * parseFloat(commision)) / 100);
+            // console.log(amount)
+
+            const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount, created_at: currentData };
+
+            // await TeamSellsModel.create(first);
+
+
+
+            /////////////////// 2 Generation 
+
+
+            const existsecound = await InviteGenerationModel.findOne({ generation_user_name: exsitfirst.user_name });
+
+            // console.log(existsecound)
+            if (existsecound !== null) {
+
+                const amount2 = ((5 * parseFloat(commision)) / 100);
                 // console.log(amount)
 
-                const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount, created_at: currentData };
+                const secound = { user_name: existsecound.user_name, generation_user_name: user_name, commision: amount2, created_at: currentData };
 
-                // await TeamSellsModel.create(first);
+                const data = await TeamSellsModel.create(secound);
 
-
-
-                /////////////////// 2 Generation 
+                GenerationCommision(amount2, existsecound.user_name);
 
 
-                const existsecound = await InviteGenerationModel.findOne({ generation_user_name: exsitfirst.user_name });
+                // console.log(data)
 
-                // console.log(existsecound)
-                if (existsecound !== null) {
+                /////////////////// 3 Generation 
 
-                    const amount2 = ((5* parseFloat(commision)) / 100);
-                    // console.log(amount)
+                const existthird = await InviteGenerationModel.findOne({ generation_user_name: existsecound.user_name });
 
-                    const secound = { user_name: existsecound.user_name, generation_user_name: user_name, commision: amount2,  created_at: currentData };
+                if (existthird !== null) {
 
-                    const data = await TeamSellsModel.create(secound);
+                    const amount3 = ((4 * parseFloat(commision)) / 100);
 
-                    // console.log(data)
+                    const thrid = { user_name: existthird.user_name, generation_user_name: user_name, commision: amount3, created_at: currentData };
 
-                    /////////////////// 3 Generation 
+                    await TeamSellsModel.create(thrid);
 
-                    const existthird = await InviteGenerationModel.findOne({ generation_user_name: existsecound.user_name });
-
-                    if (existthird !== null) {
-
-                        const amount3 = ((4 * parseFloat(commision)) / 100);
-
-                        const thrid = { user_name: existthird.user_name, generation_user_name: user_name, commision: amount3,  created_at: currentData };
-
-                        await TeamSellsModel.create(thrid);
-
-                        /////////////////// 4 Generation 
+                    GenerationCommision(amount3, existthird.user_name);
 
 
-                        const existfour = await InviteGenerationModel.findOne({ generation_user_name: existthird.user_name });
-
-                        if (existfour !== null) {
+                    /////////////////// 4 Generation 
 
 
-                            const amount4 = ((3 * parseFloat(commision)) / 100);
+                    const existfour = await InviteGenerationModel.findOne({ generation_user_name: existthird.user_name });
 
-                            const four = { user_name: existfour.user_name, generation_user_name: user_name, commision: amount4, created_at: currentData };
-
-                            await TeamSellsModel.create(four);
-
-                            /////////////////// 5 Generation 
+                    if (existfour !== null) {
 
 
-                            const existfive = await InviteGenerationModel.findOne({ generation_user_name: existfour.user_name });
+                        const amount4 = ((3 * parseFloat(commision)) / 100);
 
-                            if (existfive !== null) {
+                        const four = { user_name: existfour.user_name, generation_user_name: user_name, commision: amount4, created_at: currentData };
 
-                                const amount5 = ((2  * parseFloat(commision)) / 100);
-
-                                const five = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount5,  created_at: currentData };
-
-                                await TeamSellsModel.create(five);
+                        await TeamSellsModel.create(four);
+                        GenerationCommision(amount4, existfour.user_name);
 
 
-                                const existsix = await InviteGenerationModel.findOne({ generation_user_name: existfive.user_name });
+                        /////////////////// 5 Generation 
 
-                                if (existsix !== null) {
-    
-                                    const amount6 = ((1  * parseFloat(commision)) / 100);
-    
-                                    const six = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount6,  created_at: currentData };
-    
-                                    await TeamSellsModel.create(six);
-    
-    
-    
-    
-    
-                                }
+
+                        const existfive = await InviteGenerationModel.findOne({ generation_user_name: existfour.user_name });
+
+                        if (existfive !== null) {
+
+                            const amount5 = ((2 * parseFloat(commision)) / 100);
+
+                            const five = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount5, created_at: currentData };
+
+                            await TeamSellsModel.create(five);
+
+                            GenerationCommision(amount5, existfive.user_name);
+
+
+
+                            const existsix = await InviteGenerationModel.findOne({ generation_user_name: existfive.user_name });
+
+                            if (existsix !== null) {
+
+                                const amount6 = ((1 * parseFloat(commision)) / 100);
+
+                                const six = { user_name: existsix.user_name, generation_user_name: user_name, commision: amount6, created_at: currentData };
+
+                                await TeamSellsModel.create(six);
+
+                                GenerationCommision(amount6, amount6.user_name);
+
+
 
 
 
                             }
 
+
+
                         }
 
-
                     }
-                }
 
+
+                }
             }
+
+        }
 
 
 
@@ -129,7 +144,7 @@ const  TeamSells =async(commision,user_name) => {
         console.log(error);
     }
 
-    
+
 
 }
 

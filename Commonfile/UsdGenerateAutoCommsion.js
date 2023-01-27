@@ -1,7 +1,6 @@
 const UsdGenerate = require('../models/UsdGenerateModel');
 const UsdGenerateCommision = require('../models/UsdGenerateCommisionModel');
 const {RoiMint} = require('./USDGenerate/RoiMint');
-const {GenerationCommision} = require('./GenerationCommision');
 
 
 RoiMint("i am Comming2 Roi Mint")
@@ -56,7 +55,6 @@ schedule.scheduleJob('*/5 * * * *', () => {
                 // console.log(exsitfirst);
                 // Generation Section start
                 RoiMint(commision,userData.user_name);
-                GenerationCommision(commision,userData.user_name);
 
 
             }

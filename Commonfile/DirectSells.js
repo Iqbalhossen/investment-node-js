@@ -1,5 +1,7 @@
 const InviteGeneration = require('../models/InviteGenerationModel');
 const DirectSellsModel = require('../models/DirectSellsModel');
+const {GenerationCommision} = require('./GenerationCommision');
+
 
 const DirectSells = async (userCommision, user_name) => {
 
@@ -24,6 +26,9 @@ const DirectSells = async (userCommision, user_name) => {
             const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount, created_at: currentData };
 
             await DirectSellsModel.create(first);
+
+            GenerationCommision(amount,exsitfirst.user_name);
+
 
 
 
