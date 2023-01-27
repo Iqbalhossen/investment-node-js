@@ -53,7 +53,7 @@ const TeamSells = async (commision, user_name) => {
 
                 const data = await TeamSellsModel.create(secound);
 
-                // GenerationCommision(amount2, existsecound.user_name);
+                GenerationCommision(amount2, existsecound.user_name);
 
 
                 // console.log(data)
