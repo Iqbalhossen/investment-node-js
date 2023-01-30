@@ -1,7 +1,7 @@
 const UsdGenerate = require('../../models/UsdGenerateModel');
 const UsdGenerateCommision = require('../../models/UsdGenerateCommisionModel');
 const UsdGeneratePackage = require('../../models/UsdGeneratePackageModel');
-const { GenerationCommision } = require('../../Commonfile/GenerationCommision');
+const InviteGeneration = require('../../models/InviteGenerationModel');
 const { DirectSells } = require('../../Commonfile/DirectSells');
 const { RoiMint } = require('./../../Commonfile/USDGenerate/RoiMint');
 const { TeamSells } = require('./../../Commonfile/TeamSells');
@@ -27,6 +27,29 @@ const UsdGeneratePackageView = async (req, res) => {
 
 };
 
+const GenerationView = async (req, res) => {
+
+    const userName = req.params.userName;
+
+    try {
+        const newData = await InviteGeneration.findOne({ generation_user_name: userName });
+        res.status(201).json({
+            success: true,
+            data: newData,
+        });
+
+        // console.log(newData)
+
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+
+    // console.log(userName)
+
+};
 const UsdGeneratePackageViewByAmount = async (req, res) => {
     const amount = req.params.amount;
     try {
@@ -208,4 +231,4 @@ const UserUsdGenerateStore = async (req, res) => {
 
 
 
-module.exports = { viewUsdGenerate, UserUsdGenerateStore, EarningUsdGenerate, UsdGeneratePackageView, viewUsdGeneratePackage, UsdGeneratePackageViewByAmount, TotalEarningUsdGenerate };
+module.exports = { viewUsdGenerate, UserUsdGenerateStore, EarningUsdGenerate, UsdGeneratePackageView, viewUsdGeneratePackage, UsdGeneratePackageViewByAmount, TotalEarningUsdGenerate, GenerationView };

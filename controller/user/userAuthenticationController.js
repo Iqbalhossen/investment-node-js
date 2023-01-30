@@ -17,8 +17,11 @@ const viewUser = async (req, res) => {
         data: data,
     });
 
-console.log(data)
+// console.log(data)
 }
+
+
+
 
 
 
@@ -135,7 +138,7 @@ const createUser = async (req, res) => {
         ////////////////////////////////////// Generation Insert Start
 
 
-        const first = { user_name: reference, generation_user_name: userName, generation: "L1", created_at: user.created_at };
+        const first = { user_name: reference, generation_user_name: userName, generation: "1st Gen", created_at: user.created_at };
 
         await InviteGeneration.create(first);
 
@@ -145,7 +148,7 @@ const createUser = async (req, res) => {
 
         if (existsecount !== null) {
 
-            const secound = { user_name: existsecount.user_name, generation_user_name: userName, generation: "L2", created_at: user.created_at };
+            const secound = { user_name: existsecount.user_name, generation_user_name: userName, generation: "2nd Gen", created_at: user.created_at };
 
             const data = await InviteGeneration.create(secound);
 
@@ -153,7 +156,7 @@ const createUser = async (req, res) => {
 
             if (existthird !== null) {
 
-                const third = { user_name: existthird.user_name, generation_user_name: userName, generation: "L3", created_at: user.created_at };
+                const third = { user_name: existthird.user_name, generation_user_name: userName, generation: "3rd Gen", created_at: user.created_at };
 
                 const data = await InviteGeneration.create(third);
 
@@ -161,46 +164,46 @@ const createUser = async (req, res) => {
 
                 if (existfour !== null) {
 
-                    const four = { user_name: existfour.user_name, generation_user_name: userName, generation: "L4", created_at: user.created_at };
+                    const four = { user_name: existfour.user_name, generation_user_name: userName, generation: "4th Gen", created_at: user.created_at };
 
                     const data = await InviteGeneration.create(four);
 
                     const existfive = await InviteGeneration.findOne({ generation_user_name: existfour.user_name });
 
                     if (existfive !== null) {
-                        const five = { user_name: existfive.user_name, generation_user_name: userName, generation: "L5", created_at: user.created_at };
+                        const five = { user_name: existfive.user_name, generation_user_name: userName, generation: "5th Gen", created_at: user.created_at };
 
                         const data = await InviteGeneration.create(five);
 
                         const existsix = await InviteGeneration.findOne({ generation_user_name: existfive.user_name });
 
                         if (existsix !== null) {
-                            const six = { user_name: existsix.user_name, generation_user_name: userName, generation: "L6", created_at: user.created_at };
+                            const six = { user_name: existsix.user_name, generation_user_name: userName, generation: "6th Gen", created_at: user.created_at };
 
                             const data = await InviteGeneration.create(six);
 
                             const existseven = await InviteGeneration.findOne({ generation_user_name: existsix.user_name });
 
                             if(existseven !== null){
-                                const seven = { user_name: existseven.user_name, generation_user_name: userName, generation: "L7", created_at: user.created_at };
+                                const seven = { user_name: existseven.user_name, generation_user_name: userName, generation: "7th Gen", created_at: user.created_at };
 
                             const data = await InviteGeneration.create(seven);
 
                             const existeight= await InviteGeneration.findOne({ generation_user_name: existseven.user_name });
                             if(existeight !== null){
-                                const eight = { user_name: existeight.user_name, generation_user_name: userName, generation: "L8", created_at: user.created_at };
+                                const eight = { user_name: existeight.user_name, generation_user_name: userName, generation: "8th Gen", created_at: user.created_at };
 
                                 const data = await InviteGeneration.create(eight);
     
                                 const existnine= await InviteGeneration.findOne({ generation_user_name: existeight.user_name });
                                 if(existnine !== null){
-                                    const nine = { user_name: existnine.user_name, generation_user_name: userName, generation: "L9", created_at: user.created_at };
+                                    const nine = { user_name: existnine.user_name, generation_user_name: userName, generation: "9th Gen", created_at: user.created_at };
 
                                     const data = await InviteGeneration.create(nine);
         
                                     const existten= await InviteGeneration.findOne({ generation_user_name: existnine.user_name });
                                     if(existten !== null){
-                                        const ten = { user_name: existten.user_name, generation_user_name: userName, generation: "L10", created_at: user.created_at };
+                                        const ten = { user_name: existten.user_name, generation_user_name: userName, generation: "10th Gen", created_at: user.created_at };
 
                                         const data = await InviteGeneration.create(ten);
                                         console.log(data)
@@ -366,4 +369,4 @@ const InviteUserbyUrl = async (req, res) => {
 };
 
 
-module.exports = { viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser };
+module.exports = { viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser,  };

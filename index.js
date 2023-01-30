@@ -10,7 +10,6 @@ database();
 app.use(cors());
 
 
-
 app.use(express.urlencoded({extended: true}));
 app.use(express.json())
 
@@ -49,6 +48,10 @@ app.use('/api/admin/usd/genegrate/package', AdminUsdGenegrateRoute);
 
 
 
+const now = new Date();
+let moment = require('moment')
+
+const offDay = moment().format('dddd');
 
 
 
@@ -58,6 +61,7 @@ const userAuthRoute = require('./routes/user/userAuthRoute');
 const userDepositRoute = require('./routes/user/DepositRoute');
 const userUsdGenerateRoute = require('./routes/user/UsdGenerateRoute');
 const UserBonusRoute = require('./routes/user/BonusRoute');
+const UserGenegrationRoute = require('./routes/user/GenegrationRoute');
 
 
 
@@ -65,7 +69,7 @@ const UserBonusRoute = require('./routes/user/BonusRoute');
 app.use('/api/user', userAuthRoute);
 app.use('/api/user/deposit', userDepositRoute);
 app.use('/api/user/usd/generate', userUsdGenerateRoute);
-app.use('/api/user/bonus', UserBonusRoute);
+app.use('/api/user/genegration', UserGenegrationRoute);
 
 
 

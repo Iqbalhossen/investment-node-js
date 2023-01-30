@@ -1,5 +1,6 @@
 const InviteGenerationModel = require('../models/InviteGenerationModel');
 const TeamSellsModel = require('../models/TeamSellsModel');
+const DepositModel = require('../models/DepositModel');
 const { GenerationCommision } = require('./GenerationCommision');
 
 
@@ -10,13 +11,7 @@ const TeamSells = async (commision, user_name) => {
 
     try {
 
-
-
         let currentData = new Date();
-
-
-        // console.log(`roi Mint Commision ${commision}`);
-        // console.log(`roi Mint user_name ${user_name}`);
 
         const exsitfirst = await InviteGenerationModel.findOne({ generation_user_name: user_name });
 
@@ -51,9 +46,16 @@ const TeamSells = async (commision, user_name) => {
 
                 const secound = { user_name: existsecound.user_name, generation_user_name: user_name, commision: amount2, created_at: currentData };
 
-                const data = await TeamSellsModel.create(secound);
+                const existsecoundDeposit = await DepositModel.findOne({ User_id: existsecound.user_name });
 
-                GenerationCommision(amount2, existsecound.user_name);
+                if (existsecoundDeposit !== null) {
+                    const data = await TeamSellsModel.create(secound);
+
+                    GenerationCommision(amount2, existsecound.user_name);
+                }
+
+
+
 
 
                 // console.log(data)
@@ -68,9 +70,15 @@ const TeamSells = async (commision, user_name) => {
 
                     const thrid = { user_name: existthird.user_name, generation_user_name: user_name, commision: amount3, created_at: currentData };
 
-                    await TeamSellsModel.create(thrid);
+                    const existthirdDeposit = await DepositModel.findOne({ User_id: existthird.user_name });
 
-                    GenerationCommision(amount3, existthird.user_name);
+                    if (existthirdDeposit !== null) {
+                        await TeamSellsModel.create(thrid);
+
+                        GenerationCommision(amount3, existthird.user_name);
+                    }
+
+
 
 
                     /////////////////// 4 Generation 
@@ -85,8 +93,14 @@ const TeamSells = async (commision, user_name) => {
 
                         const four = { user_name: existfour.user_name, generation_user_name: user_name, commision: amount4, created_at: currentData };
 
-                        await TeamSellsModel.create(four);
-                        GenerationCommision(amount4, existfour.user_name);
+                        const existfourDeposit = await DepositModel.findOne({ User_id: existfour.user_name });
+
+                        if (existfourDeposit !== null) {
+                            await TeamSellsModel.create(four);
+                            GenerationCommision(amount4, existfour.user_name);
+                        }
+
+
 
 
                         /////////////////// 5 Generation 
@@ -100,9 +114,14 @@ const TeamSells = async (commision, user_name) => {
 
                             const five = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount5, created_at: currentData };
 
-                            await TeamSellsModel.create(five);
+                            const existfiveDeposit = await DepositModel.findOne({ User_id: existfive.user_name });
 
-                            GenerationCommision(amount5, existfive.user_name);
+                            if (existfiveDeposit !== null) {
+                                await TeamSellsModel.create(five);
+                                GenerationCommision(amount5, existfive.user_name);
+                            }
+
+
 
 
 
@@ -114,9 +133,17 @@ const TeamSells = async (commision, user_name) => {
 
                                 const six = { user_name: existsix.user_name, generation_user_name: user_name, commision: amount6, created_at: currentData };
 
-                                await TeamSellsModel.create(six);
+                                const existsixDeposit = await DepositModel.findOne({ User_id: existsix.user_name });
 
-                                GenerationCommision(amount6, amount6.user_name);
+                                if (existsixDeposit !== null) {
+                                    await TeamSellsModel.create(six);
+
+                                    GenerationCommision(amount6, amount6.user_name);
+                                }
+
+
+
+
 
 
 

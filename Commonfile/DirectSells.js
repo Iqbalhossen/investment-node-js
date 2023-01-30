@@ -1,5 +1,6 @@
 const InviteGeneration = require('../models/InviteGenerationModel');
 const DirectSellsModel = require('../models/DirectSellsModel');
+const DepositModel = require('../models/DepositModel');
 const {GenerationCommision} = require('./GenerationCommision');
 
 
@@ -25,9 +26,14 @@ const DirectSells = async (userCommision, user_name) => {
 
             const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount, created_at: currentData };
 
-            await DirectSellsModel.create(first);
+        const exsitDeposit = await DepositModel.findOne({ User_id: exsitfirst.user_name });
 
+        if(exsitDeposit !== null){
+            await DirectSellsModel.create(first);
             GenerationCommision(amount,exsitfirst.user_name);
+        }
+
+            
 
 
 
