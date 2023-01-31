@@ -2,6 +2,23 @@ const Deposit = require('../../models/DepositModel');
 const { ObjectId } = require('mongodb');
 
 
+const viewDeposit = async (req, res) => {
+    const userId = req.params.username;
+
+    try {
+        const pendingDeposit = { User_id: userId };
+
+     const newData = await  Deposit.find(pendingDeposit);
+            res.status(201).json({
+                success: true,
+                data: newData,
+            });
+            console.log(newData)
+
+    } catch (error) {
+        console.log(error);
+    }
+};
 const viewDepositPending = async (req, res) => {
     const userId = req.params.username;
 
@@ -64,4 +81,4 @@ const UserDepositStore = async (req, res) => {
 
 
 
-module.exports = { viewDepositPending, UserDepositStore, viewDepositAccept };
+module.exports = { viewDepositPending, UserDepositStore, viewDepositAccept, viewDeposit };

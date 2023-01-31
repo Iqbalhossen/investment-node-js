@@ -35,6 +35,7 @@ app.get('/', (req, res) => {
   const AdminUserRoute = require('./routes/admin/UserRoute');
   const AdminDepositRoute = require('./routes/admin/UserDepositPackage');
   const AdminUsdGenegrateRoute = require('./routes/admin/UsdGenegrateRoute');
+  const AdminWithdraw = require('./routes/admin/WithdrawRoute');
 
 
 
@@ -45,6 +46,7 @@ app.use('/api/admin/generation', AdminGenerationRoute);
 app.use('/api/admin/deposit/package', AdminDepositPackageRoute);
 app.use('/api/admin/user/deposit/package', AdminDepositRoute);
 app.use('/api/admin/usd/genegrate/package', AdminUsdGenegrateRoute);
+app.use('/api/admin/withdraw', AdminWithdraw);
 
 
 
@@ -62,6 +64,7 @@ const userDepositRoute = require('./routes/user/DepositRoute');
 const userUsdGenerateRoute = require('./routes/user/UsdGenerateRoute');
 const UserBonusRoute = require('./routes/user/BonusRoute');
 const UserGenegrationRoute = require('./routes/user/GenegrationRoute');
+const WithdrawRoute = require('./routes/user/WithdrawRoute');
 
 
 
@@ -69,7 +72,9 @@ const UserGenegrationRoute = require('./routes/user/GenegrationRoute');
 app.use('/api/user', userAuthRoute);
 app.use('/api/user/deposit', userDepositRoute);
 app.use('/api/user/usd/generate', userUsdGenerateRoute);
+app.use('/api/user/bonus', UserBonusRoute);
 app.use('/api/user/genegration', UserGenegrationRoute);
+app.use('/api/user/withdraw', WithdrawRoute);
 
 
 
