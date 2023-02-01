@@ -20,7 +20,7 @@ const sendVerifyEmail = async (name, email, user_id) => {
             from: 'miller5547l@gmail.com',
             to: email,
             subject: 'For Acoount Verficition in Yume One',
-            html: '<h3> Hi! ' + name + '</h3>' + ' <p> Please Click Here <a href="http://localhost:3000/verify/account/'+user_id + user_id +'/'+ user_id +'"> Verify </a></p>'
+            html: '<h3> Hi! ' + name + '</h3>' + ' <p> Please Click Here <a href="https://crypto-sooty-omega.vercel.app/verify/account/'+user_id + user_id +'/'+ user_id +'"> Verify </a></p>'
         }
 
         transpoter.sendMail(mailOption, function (error,info) {
