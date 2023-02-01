@@ -39,14 +39,9 @@ const GenerationView = async (req, res) => {
         });
 
         // console.log(newData)
-
-
     } catch (error) {
         console.log(error);
     }
-
-
-
     // console.log(userName)
 
 };
@@ -65,8 +60,6 @@ const UsdGeneratePackageViewByAmount = async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-
-
 };
 
 
@@ -74,9 +67,6 @@ const viewUsdGenerate = async (req, res) => {
     const userId = req.params.id;
 
     try {
-
-
-
         UsdGenerate.find({ user_name: userId }).sort({ _id: -1 })
             .then((results) => {
                 res.send(results);
@@ -129,15 +119,6 @@ const EarningUsdGenerate = async (req, res) => {
             data: data,
             usdAmount: usdAmount,
         });
-        // console.log(usdAmount);
-
-        // UsdGenerateCommision.find({ user_name: userId, package_id: package_id })
-        //     .then((results) => {
-        //         res.send(results);
-        //     })
-        //     .catch();
-
-
     } catch (error) {
         console.log(error);
     }
@@ -174,7 +155,7 @@ const UserUsdGenerateStore = async (req, res) => {
         const sameDate = new Date();
 
         const package = await UsdGeneratePackage.findOne({ usd_generate_package_amount: depositAmount });
-        console.log(package)
+        // console.log(package)
 
         const AddUsdGenerate = { user_name: userName, package_name: package.usd_generate_package_name, package_id: package._id, package_amount: package.usd_generate_package_amount, TotalProfit: package.total_profit, status: 0, created_at: sameDate };
 
@@ -200,7 +181,7 @@ const UserUsdGenerateStore = async (req, res) => {
         const aajf = await UsdGenerateCommision.create(setCommision);
 
 
-        
+
         ////////////////////////////////// DirectSells Section Start   ////////////////////////////////////
 
 

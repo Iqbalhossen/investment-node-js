@@ -2,6 +2,9 @@ const User = require('../../models/userModels');
 const InviteGeneration = require('../../models/InviteGenerationModel');
 const { ObjectId } = require('mongodb');
 
+const nodemailer = require('nodemailer');
+
+const {sendVerifyEmail} = require('./../../Commonfile/Mail/sendVerifyEmail');
 
 const viewUser = async (req, res) => {
     const userName = req.params.userName;
@@ -134,95 +137,98 @@ const createUser = async (req, res) => {
         const users = await User.create(user);
 
 
+        if(user){
+            sendVerifyEmail(req.body.name, email, users._id ,userName)
+        }
 
         ////////////////////////////////////// Generation Insert Start
 
 
-        const first = { user_name: reference, generation_user_name: userName, generation: "1st Gen", created_at: user.created_at };
+        // const first = { user_name: reference, generation_user_name: userName, generation: "1st Gen", created_at: user.created_at };
 
-        await InviteGeneration.create(first);
+        // await InviteGeneration.create(first);
 
-        const existsecount = await InviteGeneration.findOne({ generation_user_name: reference });
+        // const existsecount = await InviteGeneration.findOne({ generation_user_name: reference });
 
 
 
-        if (existsecount !== null) {
+        // if (existsecount !== null) {
 
-            const secound = { user_name: existsecount.user_name, generation_user_name: userName, generation: "2nd Gen", created_at: user.created_at };
+        //     const secound = { user_name: existsecount.user_name, generation_user_name: userName, generation: "2nd Gen", created_at: user.created_at };
 
-            const data = await InviteGeneration.create(secound);
+        //     const data = await InviteGeneration.create(secound);
 
-            const existthird = await InviteGeneration.findOne({ generation_user_name: existsecount.user_name });
+        //     const existthird = await InviteGeneration.findOne({ generation_user_name: existsecount.user_name });
 
-            if (existthird !== null) {
+        //     if (existthird !== null) {
 
-                const third = { user_name: existthird.user_name, generation_user_name: userName, generation: "3rd Gen", created_at: user.created_at };
+        //         const third = { user_name: existthird.user_name, generation_user_name: userName, generation: "3rd Gen", created_at: user.created_at };
 
-                const data = await InviteGeneration.create(third);
+        //         const data = await InviteGeneration.create(third);
 
-                const existfour = await InviteGeneration.findOne({ generation_user_name: existthird.user_name });
+        //         const existfour = await InviteGeneration.findOne({ generation_user_name: existthird.user_name });
 
-                if (existfour !== null) {
+        //         if (existfour !== null) {
 
-                    const four = { user_name: existfour.user_name, generation_user_name: userName, generation: "4th Gen", created_at: user.created_at };
+        //             const four = { user_name: existfour.user_name, generation_user_name: userName, generation: "4th Gen", created_at: user.created_at };
 
-                    const data = await InviteGeneration.create(four);
+        //             const data = await InviteGeneration.create(four);
 
-                    const existfive = await InviteGeneration.findOne({ generation_user_name: existfour.user_name });
+        //             const existfive = await InviteGeneration.findOne({ generation_user_name: existfour.user_name });
 
-                    if (existfive !== null) {
-                        const five = { user_name: existfive.user_name, generation_user_name: userName, generation: "5th Gen", created_at: user.created_at };
+        //             if (existfive !== null) {
+        //                 const five = { user_name: existfive.user_name, generation_user_name: userName, generation: "5th Gen", created_at: user.created_at };
 
-                        const data = await InviteGeneration.create(five);
+        //                 const data = await InviteGeneration.create(five);
 
-                        const existsix = await InviteGeneration.findOne({ generation_user_name: existfive.user_name });
+        //                 const existsix = await InviteGeneration.findOne({ generation_user_name: existfive.user_name });
 
-                        if (existsix !== null) {
-                            const six = { user_name: existsix.user_name, generation_user_name: userName, generation: "6th Gen", created_at: user.created_at };
+        //                 if (existsix !== null) {
+        //                     const six = { user_name: existsix.user_name, generation_user_name: userName, generation: "6th Gen", created_at: user.created_at };
 
-                            const data = await InviteGeneration.create(six);
+        //                     const data = await InviteGeneration.create(six);
 
-                            const existseven = await InviteGeneration.findOne({ generation_user_name: existsix.user_name });
+        //                     const existseven = await InviteGeneration.findOne({ generation_user_name: existsix.user_name });
 
-                            if(existseven !== null){
-                                const seven = { user_name: existseven.user_name, generation_user_name: userName, generation: "7th Gen", created_at: user.created_at };
+        //                     if(existseven !== null){
+        //                         const seven = { user_name: existseven.user_name, generation_user_name: userName, generation: "7th Gen", created_at: user.created_at };
 
-                            const data = await InviteGeneration.create(seven);
+        //                     const data = await InviteGeneration.create(seven);
 
-                            const existeight= await InviteGeneration.findOne({ generation_user_name: existseven.user_name });
-                            if(existeight !== null){
-                                const eight = { user_name: existeight.user_name, generation_user_name: userName, generation: "8th Gen", created_at: user.created_at };
+        //                     const existeight= await InviteGeneration.findOne({ generation_user_name: existseven.user_name });
+        //                     if(existeight !== null){
+        //                         const eight = { user_name: existeight.user_name, generation_user_name: userName, generation: "8th Gen", created_at: user.created_at };
 
-                                const data = await InviteGeneration.create(eight);
+        //                         const data = await InviteGeneration.create(eight);
     
-                                const existnine= await InviteGeneration.findOne({ generation_user_name: existeight.user_name });
-                                if(existnine !== null){
-                                    const nine = { user_name: existnine.user_name, generation_user_name: userName, generation: "9th Gen", created_at: user.created_at };
+        //                         const existnine= await InviteGeneration.findOne({ generation_user_name: existeight.user_name });
+        //                         if(existnine !== null){
+        //                             const nine = { user_name: existnine.user_name, generation_user_name: userName, generation: "9th Gen", created_at: user.created_at };
 
-                                    const data = await InviteGeneration.create(nine);
+        //                             const data = await InviteGeneration.create(nine);
         
-                                    const existten= await InviteGeneration.findOne({ generation_user_name: existnine.user_name });
-                                    if(existten !== null){
-                                        const ten = { user_name: existten.user_name, generation_user_name: userName, generation: "10th Gen", created_at: user.created_at };
+        //                             const existten= await InviteGeneration.findOne({ generation_user_name: existnine.user_name });
+        //                             if(existten !== null){
+        //                                 const ten = { user_name: existten.user_name, generation_user_name: userName, generation: "10th Gen", created_at: user.created_at };
 
-                                        const data = await InviteGeneration.create(ten);
-                                        console.log(data)
-                                    }
-                                }
-                            }
-                            }
+        //                                 const data = await InviteGeneration.create(ten);
+        //                                 console.log(data)
+        //                             }
+        //                         }
+        //                     }
+        //                     }
                          
 
-                        }
+        //                 }
 
                         
-                    }
+        //             }
 
-                }
+        //         }
 
 
-            }
-        }
+        //     }
+        // }
 
         /////////////////////////////////////////// Generation Insert End
 
@@ -239,6 +245,81 @@ const createUser = async (req, res) => {
     }
 
 
+};
+
+
+const verifyEmail = async (req, res) => {
+
+    try {
+
+    const id =  req.params.id;
+    const page = {is_verified:true};
+    const filter =  {_id : ObjectId(id)};
+    const  option = {upsert: true};
+
+
+    const findUser =  await User.findOne(filter);
+
+
+    if(findUser.is_verified === false){
+        
+    const data =  await User.updateOne(filter, page, option);
+    res.status(201).json({
+        success: true,
+        message: "Verify successful",
+        data: data,
+    });
+        
+    }else{
+        res.status(401).json({
+            success: false,
+            message: "Already Verified",
+        });
+    }
+
+     
+
+    } catch (error) {
+        console.log(error);
+    }
+
+   
+};
+
+const verifyEmailSend = async (req, res) => {
+
+    try {
+
+    const oldid =  req.params.user_id;
+
+
+
+    const filter =  {_id : ObjectId(oldid)};
+
+    const data =  await User.findOne(filter);
+    // console.log(data)
+
+
+    if(data){
+        if(data.is_verified === false)
+        sendVerifyEmail(data.name, data.email, data._id ,data.userName);
+        res.status(201).json({
+            success: true,
+            message: "Please Check Your Email",
+        });
+    }
+    else{
+        res.status(201).json({
+            success: false,
+            message: "Already Verified Your Account!",
+        });
+    }
+
+    } catch (error) {
+        console.log(error);
+    }
+
+   
 };
 
 
@@ -369,4 +450,4 @@ const InviteUserbyUrl = async (req, res) => {
 };
 
 
-module.exports = { viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser,  };
+module.exports = { viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser, verifyEmail, verifyEmailSend };

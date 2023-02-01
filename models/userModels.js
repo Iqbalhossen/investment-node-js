@@ -27,6 +27,9 @@ var userSchema = new mongoose.Schema({
     picture:{
         type:String,
     },
+    is_verified:{
+        type:Boolean,
+    },
     status:{
         type:Boolean,
     },

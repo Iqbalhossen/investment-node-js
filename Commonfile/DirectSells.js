@@ -61,19 +61,3 @@ module.exports = { DirectSells };
 
 ////////////////////////////// Usd Generate Commistion Section End
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-module.exports = { DirectSells };
