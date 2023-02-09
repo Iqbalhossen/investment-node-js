@@ -52,7 +52,13 @@ const loginUser = async (req, res) => {
         });
 
     }
-   
+    if (! await existsEmail.isPasswordMatched(password)) {
+        return res.status(400).json({
+            success: false,
+            message: "Password Invailid",
+        });
+
+    }
 
     res.status(201).json({
         success: true,
