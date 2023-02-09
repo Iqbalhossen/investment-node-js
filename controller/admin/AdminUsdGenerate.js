@@ -7,6 +7,7 @@ const UsdGenegratePackageView = async (req, res) => {
     try {
         const data = await UsdGenegratePackage.find();
         newData = { data }
+        console.log(data)
         res.status(201).json({
             success: true,
             data: newData,
@@ -91,7 +92,35 @@ const UsdGenegratePackageedit = async (req, res) => {
 
 
 };
+const UsdGenegratePackageUpdate = async (req, res) => {
 
+    const page = req.body;
+
+    try {
+
+        const newid = req.params.id;
+
+        const filter = { _id: ObjectId(newid) };
+        const option = { upsert: true };
+
+
+
+        const results = await UsdGenegratePackage.updateOne(filter, page, option);
+
+        console.log(results);
+        res.status(201).json({
+            success: true,
+            message: " Update successfully",
+            data: results
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+
+};
 const UsdGenegratePackagedelete = async (req, res) => {
 
     try {
@@ -120,4 +149,4 @@ const UsdGenegratePackagedelete = async (req, res) => {
 
 
 
-module.exports = { UsdGenegratePackageStore, UsdGenegratePackageView, UsdGenegratePackagedelete, UsdGenegratePackageedit };
+module.exports = { UsdGenegratePackageStore, UsdGenegratePackageView, UsdGenegratePackagedelete, UsdGenegratePackageedit, UsdGenegratePackageUpdate };
