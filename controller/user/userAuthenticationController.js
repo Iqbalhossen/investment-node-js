@@ -4,7 +4,7 @@ const { ObjectId } = require('mongodb');
 
 const nodemailer = require('nodemailer');
 
-const {sendVerifyEmail} = require('./../../Commonfile/Mail/sendVerifyEmail');
+const {sendVerifyEmail, ForgotPasswordSendEmail} = require('./../../Commonfile/Mail/sendVerifyEmail');
 
 const viewUser = async (req, res) => {
     const userName = req.params.userName;
@@ -44,6 +44,7 @@ const loginUser = async (req, res) => {
     //        });
 
     //    }
+    // console.log(await existsEmail.isPasswordMatched(password))
     if (!existsEmail) {
         return res.status(400).json({
             success: false,
@@ -51,7 +52,7 @@ const loginUser = async (req, res) => {
         });
 
     }
-    if (!existspassword) {
+    if (! await existsEmail.isPasswordMatched(password)) {
         return res.status(400).json({
             success: false,
             message: "Password Invailid",
@@ -450,4 +451,133 @@ const InviteUserbyUrl = async (req, res) => {
 };
 
 
-module.exports = { viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser, verifyEmail, verifyEmailSend };
+const ForgotPassword = async (req, res) => {
+    const email = req.body.email;
+    const existsEmail = await User.findOne({ email: email });
+    if (existsEmail) {
+
+        ForgotPasswordSendEmail(existsEmail.name, existsEmail.email, existsEmail._id);
+        res.status(201).json({
+            message: 'Check Your Email',
+            success: true,
+        });
+
+    } else {
+        res.status(401).json({
+            message: 'Email Not Register',
+            success: false,
+        });
+    }
+};
+
+const ResetPassword = async (req, res) => {
+    const id =  req.params.id;
+    const password =  req.body.password;
+    const cpassword =  req.body.cpassword;
+    const page = {password:password};
+    const filter =  {_id : ObjectId(id)};
+    const  option = {upsert: true};
+
+    const existsEmail = await User.findOne(filter);
+    if (existsEmail) {
+
+        if(password === cpassword){
+            
+        const data =  await User.updateOne(filter, page, option);
+        res.status(201).json({
+            success: true,
+            message: "Password Reset Successful",
+            data: data,
+        });
+        }else{
+            res.status(401).json({
+                message: 'Confirm password does not match!',
+                success: false,
+            });
+
+        }
+
+
+
+    } else {
+        res.status(401).json({
+            message: 'Email Not Register',
+            success: false,
+        });
+    }
+};
+const ChangeProfile = async (req, res , next) => {
+
+
+    try {
+        const id =  req.params.id;
+        const email =  req.body.email;
+        const image =  `${req?.file?.path ? req?.file?.path : null}`;
+        const filter =  {_id : ObjectId(id)};
+        const existsUser = await User.findOne(filter);
+        const existsEmail = await User.findOne({email:email});
+
+        if (existsEmail) {
+            return res.status(400).json({
+                success: false,
+                message: "Email Already Token",
+            });
+    
+        }
+        
+console.log(req.body)
+        const  option = {upsert: true};
+        if(!image && existsUser){
+
+            if(!email){
+                const user = {name: req.body.name}
+                const data =  await User.updateOne(filter, user, option);
+                res.status(201).json({
+                    success: true,
+                    message: "Profile Update Successful",
+                    data: existsEmail,
+                });
+            }else{
+                const user = {name: req.body.name ,  email:`${req.body.email ? req.body.email :existsEmail.email }`, is_verified:false }
+                const data =  await User.updateOne(filter, user, option);
+                res.status(201).json({
+                    success: true,
+                    message: "Profile Update Successful",
+                    data: existsEmail,
+                });
+            }
+           
+    
+        }else{
+
+            if(!email && !picture){
+                const user = {name: req.body.name  }
+                const data =  await User.updateOne(filter, user, option);
+                res.status(201).json({
+                    success: true,
+                    message: "Profile Update Successful",
+                    data: existsEmail,
+                });
+            }else{
+                const user = {name: `${req.body.name ? req.body.name : existsEmail.name }` , email:`${req.body.email ? req.body.email :existsEmail.email }`, picture:image, is_verified:false }
+                const data =  await User.updateOne(filter, user, option);
+                res.status(201).json({
+                    success: true,
+                    message: "Profile Update Successful",
+                    data: existsEmail,
+                });
+            }
+
+        }
+
+        
+
+    } catch (error) {
+        console.log(error);
+    }
+// console.log(image)
+   
+};
+
+
+module.exports = { viewUser, createUser, InviteUser, InviteUserCreate, InviteUserbyUrl, loginUser, verifyEmail, verifyEmailSend ,ForgotPassword, ResetPassword, ChangeProfile};

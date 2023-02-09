@@ -1,8 +1,10 @@
 const express = require('express')
 const route = express.Router();
 
-const {UserStore, } = require('./../../controller/admin/AdminUserController');
+const {UserStore, AllUserShow, InactiveUser} = require('./../../controller/admin/AdminUserController');
 
+route.get('/all/view', AllUserShow);
+route.put('/inactive/:id', InactiveUser);
 route.post('/create', UserStore);
 
 

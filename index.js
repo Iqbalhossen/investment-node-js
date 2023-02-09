@@ -41,7 +41,7 @@ app.get('/', (req, res) => {
 
 
 ///////////// admin route 
-app.use('/api/admin/user/', AdminUserRoute);
+app.use('/api/admin/user', AdminUserRoute);
 app.use('/api/admin/generation', AdminGenerationRoute);
 app.use('/api/admin/deposit/package', AdminDepositPackageRoute);
 app.use('/api/admin/user/deposit/package', AdminDepositRoute);
@@ -78,36 +78,12 @@ app.use('/api/user/withdraw', WithdrawRoute);
 
 
 
-
-
-
-
-
-
-// const {RoiMint} = require('./Commonfile/USDGenerate/RoiMint');
-
-
-// RoiMint("i am Comming2 Roi Mint")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(PORT, () => {
     console.log(`server is running at PORT ${PORT}`);
 });
 
 
-
+app.use('/', express.static('/'));
 
 
 
