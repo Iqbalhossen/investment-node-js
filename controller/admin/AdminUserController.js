@@ -21,24 +21,24 @@ const AllUserShow = async (req, res) => {
 const InactiveUser = async (req, res) => {
     try {
 
-        const userId =  req.params.id;
+        const userId = req.params.id;
         console.log(userId);
-        const page = {status:false};
-        const filter =  {_id : ObjectId(userId)};
-        const  option = {upsert: true};
+        const page = { status: false };
+        const filter = { _id: ObjectId(userId) };
+        const option = { upsert: true };
 
 
 
-        const results =  await User.updateOne(filter, page, option);
+        const results = await User.updateOne(filter, page, option);
         const newData = { results }
-        console.log(newData)
+        // console.log(newData)
         res.status(201).json({
             success: true,
             message: "Deposit successfully",
             data: newData,
         });
 
-console.log(results)
+        // console.log(results)
 
     } catch (error) {
         console.log(error);
