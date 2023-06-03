@@ -29,9 +29,9 @@ const ViewTemaMember = async (req, res) => {
 };
 
 
-const viewGenegrationLevelOne = async (req, res) => {
+const viewGenerationLevelOne = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"1st Gen"};
 
@@ -53,9 +53,9 @@ const viewGenegrationLevelOne = async (req, res) => {
 
 
 
-const viewGenegrationLevelTwo = async (req, res) => {
+const viewGenerationLevelTwo = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"2nd Gen"};
 
@@ -77,9 +77,9 @@ const viewGenegrationLevelTwo = async (req, res) => {
 
 
 
-const viewGenegrationLevelThree = async (req, res) => {
+const viewGenerationLevelThree = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"3rd Gen"};
 
@@ -101,9 +101,9 @@ const viewGenegrationLevelThree = async (req, res) => {
 
 
 
-const viewGenegrationLevelFour = async (req, res) => {
+const viewGenerationLevelFour = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"4th Gen"};
 
@@ -125,9 +125,9 @@ const viewGenegrationLevelFour = async (req, res) => {
 
 
 
-const viewGenegrationLevelFive = async (req, res) => {
+const viewGenerationLevelFive = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"5th Gen"};
 
@@ -148,9 +148,9 @@ const viewGenegrationLevelFive = async (req, res) => {
 };
 
 
-const viewGenegrationLevelSix = async (req, res) => {
+const viewGenerationLevelSix = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"6th Gen"};
 
@@ -171,9 +171,9 @@ const viewGenegrationLevelSix = async (req, res) => {
 };
 
 
-const viewGenegrationLevelSeven = async (req, res) => {
+const viewGenerationLevelSeven = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"7th Gen"};
 
@@ -194,9 +194,9 @@ const viewGenegrationLevelSeven = async (req, res) => {
 };
 
 
-const viewGenegrationLevelEight = async (req, res) => {
+const viewGenerationLevelEight = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"8th Gen"};
 
@@ -217,9 +217,9 @@ const viewGenegrationLevelEight = async (req, res) => {
 };
 
 
-const viewGenegrationLevelNine = async (req, res) => {
+const viewGenerationLevelNine = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"9th Gen"};
 
@@ -240,9 +240,9 @@ const viewGenegrationLevelNine = async (req, res) => {
 };
 
 
-const viewGenegrationLevelTen = async (req, res) => {
+const viewGenerationLevelTen = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId,  generation:"10th Gen"};
 
@@ -264,4 +264,4 @@ const viewGenegrationLevelTen = async (req, res) => {
 
 
 
-module.exports = {viewGenegrationLevelOne, viewGenegrationLevelTwo, viewGenegrationLevelThree, viewGenegrationLevelFour, viewGenegrationLevelFive, viewGenegrationLevelSix, viewGenegrationLevelSeven, viewGenegrationLevelEight, viewGenegrationLevelNine, viewGenegrationLevelTen, ViewTemaMember};
+module.exports = {viewGenerationLevelOne, viewGenerationLevelTwo, viewGenerationLevelThree, viewGenerationLevelFour, viewGenerationLevelFive, viewGenerationLevelSix, viewGenerationLevelSeven, viewGenerationLevelEight, viewGenerationLevelNine, viewGenerationLevelTen, ViewTemaMember};

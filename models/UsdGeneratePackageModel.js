@@ -17,6 +17,11 @@ var UsdGeneratePackageSchema = new mongoose.Schema({
         required:true,
         
     },
+    membership:{
+        type:Number,
+        required:true,
+        
+    },
     status:{
         type:Boolean,
     },

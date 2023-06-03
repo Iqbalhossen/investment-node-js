@@ -7,12 +7,13 @@ const UsdGenegratePackageView = async (req, res) => {
     try {
         const data = await UsdGenegratePackage.find();
         newData = { data }
-        console.log(data)
+        // console.log(data)
         res.status(201).json({
             success: true,
             data: newData,
+            length:data.length
         });
-
+ 
 
     } catch (error) {
         console.log(error);
@@ -107,7 +108,7 @@ const UsdGenegratePackageUpdate = async (req, res) => {
 
         const results = await UsdGenegratePackage.updateOne(filter, page, option);
 
-        console.log(results);
+        // console.log(results);
         res.status(201).json({
             success: true,
             message: " Update successfully",

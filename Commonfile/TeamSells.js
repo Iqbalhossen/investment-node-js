@@ -1,6 +1,6 @@
 const InviteGenerationModel = require('../models/InviteGenerationModel');
 const TeamSellsModel = require('../models/TeamSellsModel');
-const DepositModel = require('../models/DepositModel');
+const UsdGenerateModel = require('../models/UsdGenerateModel');
 const { GenerationCommision } = require('./GenerationCommision');
 
 
@@ -46,7 +46,7 @@ const TeamSells = async (commision, user_name) => {
 
                 const secound = { user_name: existsecound.user_name, generation_user_name: user_name, commision: amount2, created_at: currentData };
 
-                const existsecoundDeposit = await DepositModel.findOne({ User_id: existsecound.user_name });
+                const existsecoundDeposit = await UsdGenerateModel.findOne({ user_name: existsecound.user_name });
 
                 if (existsecoundDeposit !== null) {
                     const data = await TeamSellsModel.create(secound);
@@ -70,7 +70,7 @@ const TeamSells = async (commision, user_name) => {
 
                     const thrid = { user_name: existthird.user_name, generation_user_name: user_name, commision: amount3, created_at: currentData };
 
-                    const existthirdDeposit = await DepositModel.findOne({ User_id: existthird.user_name });
+                    const existthirdDeposit = await UsdGenerateModel.findOne({ user_name: existthird.user_name });
 
                     if (existthirdDeposit !== null) {
                         await TeamSellsModel.create(thrid);
@@ -93,7 +93,7 @@ const TeamSells = async (commision, user_name) => {
 
                         const four = { user_name: existfour.user_name, generation_user_name: user_name, commision: amount4, created_at: currentData };
 
-                        const existfourDeposit = await DepositModel.findOne({ User_id: existfour.user_name });
+                        const existfourDeposit = await UsdGenerateModel.findOne({ user_name: existfour.user_name });
 
                         if (existfourDeposit !== null) {
                             await TeamSellsModel.create(four);
@@ -114,7 +114,7 @@ const TeamSells = async (commision, user_name) => {
 
                             const five = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount5, created_at: currentData };
 
-                            const existfiveDeposit = await DepositModel.findOne({ User_id: existfive.user_name });
+                            const existfiveDeposit = await UsdGenerateModel.findOne({ user_name: existfive.user_name });
 
                             if (existfiveDeposit !== null) {
                                 await TeamSellsModel.create(five);
@@ -133,7 +133,7 @@ const TeamSells = async (commision, user_name) => {
 
                                 const six = { user_name: existsix.user_name, generation_user_name: user_name, commision: amount6, created_at: currentData };
 
-                                const existsixDeposit = await DepositModel.findOne({ User_id: existsix.user_name });
+                                const existsixDeposit = await UsdGenerateModel.findOne({ user_name: existsix.user_name });
 
                                 if (existsixDeposit !== null) {
                                     await TeamSellsModel.create(six);

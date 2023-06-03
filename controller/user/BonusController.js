@@ -3,7 +3,7 @@ const Generation = require('../../models/GenerationModel');
 const RoiMint = require('../../models/RoiMintModel');
 const TeamSells = require('../../models/TeamSellsModel');
 const BonusBalanceModel = require('../../models/BonusBalanceModel');
-const InviteGenerationModel = require('../../models/InviteGenerationModel');
+const CoinMiningBonusBalance = require('../../models/CoinMiningBonusBalanceModel');
 
 const { ObjectId } = require('mongodb');
 
@@ -98,11 +98,11 @@ const viewRoiMintAccept = async (req, res) => {
 };
 const ViewBonusBalance = async (req, res) => {
     const userId = req.params.username;
-    console.log(userId)
+    // console.log(userId)
     try {
         const acceptDeposit = { user_name: userId  };
 
-        const data = await BonusBalanceModel.find(acceptDeposit)
+        const data = await BonusBalanceModel.find(acceptDeposit).sort({created_at:-1});
         newData = {data}
         res.status(201).json({
             success: true,
@@ -121,8 +121,7 @@ const ViewBonusBalance = async (req, res) => {
 const StoreBonusBalance = async (req, res) => {
     const userId = req.params.username;
     const amount = req.body;
-    console.log(amount);
-    console.log(userId)
+
 
     try {
 
@@ -130,8 +129,8 @@ const StoreBonusBalance = async (req, res) => {
 
         const totalAmount = { amount: parseFloat(amount.amount), user_name: userId, created_at: date };
 
-        if((amount.amount - amount.TotalbonusAbount) >=10){
-            if(amount.amount >= amount.TotalbonusAbount){
+        if((amount.amount ) >=10){
+            if(amount.amount){
                 const data = await BonusBalanceModel.create(totalAmount)
                 newData = {data}
                 res.status(201).json({
@@ -140,7 +139,7 @@ const StoreBonusBalance = async (req, res) => {
                     message: "Transfer Success",
                 });
         
-                console.log(newData)
+                // console.log(newData)
     
             }else{
                 res.status(401).json({
@@ -171,4 +170,81 @@ const StoreBonusBalance = async (req, res) => {
 
 
 
-module.exports = {ViewDirectSells, viewRoiMintAccept, viewTeamSellsAccept, viewGenerationAccept ,StoreBonusBalance ,ViewBonusBalance };
+
+const ViewCoinMiningBonusBalance = async (req, res) => {
+    const userId = req.params.username;
+    // console.log(userId)
+    try {
+        const acceptDeposit = { user_name: userId  };
+
+        const data = await CoinMiningBonusBalance.find(acceptDeposit)
+        newData = {data}
+        res.status(201).json({
+            success: true,
+            data: newData,
+        });
+
+        // console.log(newData)
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+};
+
+
+const StoreCoinMiningBonusBalance = async (req, res) => {
+    const userId = req.params.username;
+    const amount = req.body;
+    // console.log(amount);
+    // console.log(userId)
+
+    try {
+
+        const date = new Date();
+
+        const totalAmount = { amount: parseFloat(amount.amount), user_name: userId, created_at: date };
+
+        if((amount.amount - amount.TotalbonusAbount) >=10){
+            if(amount.amount >= amount.TotalbonusAbount){
+                const data = await CoinMiningBonusBalance.create(totalAmount)
+                newData = {data}
+                res.status(201).json({
+                    success: true,
+                    data: newData,
+                    message: "Transfer Success",
+                });
+        
+                // console.log(newData)
+    
+            }else{
+                res.status(401).json({
+                    success: false,
+                    message: "Amount Low",
+                });
+            }
+        }else{
+            res.status(401).json({
+                success: false,
+                message: "Amount Low",
+            });
+        }
+       
+
+    
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+
+
+
+};
+
+
+
+
+module.exports = {ViewDirectSells, viewRoiMintAccept, viewTeamSellsAccept, viewGenerationAccept ,StoreBonusBalance ,ViewBonusBalance , StoreCoinMiningBonusBalance, ViewCoinMiningBonusBalance};

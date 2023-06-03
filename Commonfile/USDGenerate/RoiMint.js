@@ -1,7 +1,6 @@
-const UsdGenerateAll = require('../../models/UsdGenerateModel');
 const RoiMintModel = require('../../models/RoiMintModel');
 const InviteGenerationModel = require('../../models/InviteGenerationModel');
-const DepositModel = require('../../models/DepositModel');
+const UsdGenerateModel = require('../../models/UsdGenerateModel');
 
 ///////////////////////////// Usd Generate Commistion Section start
 
@@ -34,7 +33,7 @@ const  RoiMint =async(commision,user_name) => {
 
                 const first = { user_name: exsitfirst.user_name, generation_user_name: user_name, commision: amount,  created_at: currentData };
 
-                const exsitfirstDeposit = await DepositModel.findOne({ User_id: exsitfirst.user_name });
+                const exsitfirstDeposit = await UsdGenerateModel.findOne({ user_name: exsitfirst.user_name });
 
                 if (exsitfirstDeposit !== null) {
                     await RoiMintModel.create(first);
@@ -56,7 +55,7 @@ const  RoiMint =async(commision,user_name) => {
 
                     const secound = { user_name: existsecound.user_name, generation_user_name: user_name, commision: amount2,  created_at: currentData };
 
-                    const existsecoundDeposit = await DepositModel.findOne({ User_id: existsecound.user_name });
+                    const existsecoundDeposit = await UsdGenerateModel.findOne({ user_name: existsecound.user_name });
 
                     if (existsecoundDeposit !== null) {
                         const data = await RoiMintModel.create(secound);
@@ -77,7 +76,7 @@ const  RoiMint =async(commision,user_name) => {
 
                         const thrid = { user_name: existthird.user_name, generation_user_name: user_name, commision: amount3, created_at: currentData };
 
-                        const existthirdDeposit = await DepositModel.findOne({ User_id: existthird.user_name });
+                        const existthirdDeposit = await UsdGenerateModel.findOne({ user_name: existthird.user_name });
 
                     if (existthirdDeposit !== null) {
                         await RoiMintModel.create(thrid);
@@ -97,7 +96,7 @@ const  RoiMint =async(commision,user_name) => {
 
                             const four = { user_name: existfour.user_name, generation_user_name: user_name, commision: amount4,  created_at: currentData };
 
-                            const existfourDeposit = await DepositModel.findOne({ User_id: existfour.user_name });
+                            const existfourDeposit = await UsdGenerateModel.findOne({ user_name: existfour.user_name });
 
                             if (existfourDeposit !== null) {
                                 await RoiMintModel.create(four);
@@ -116,7 +115,7 @@ const  RoiMint =async(commision,user_name) => {
 
                                 const five = { user_name: existfive.user_name, generation_user_name: user_name, commision: amount5, created_at: currentData };
 
-                                const existfiveDeposit = await DepositModel.findOne({ User_id: existfive.user_name });
+                                const existfiveDeposit = await UsdGenerateModel.findOne({ user_name: existfive.user_name });
 
                                 if (existfiveDeposit !== null) {
                                     await RoiMintModel.create(five);

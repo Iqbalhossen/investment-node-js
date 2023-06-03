@@ -1,10 +1,36 @@
 const User = require('../../models/userModels');
+const FakeUser = require('../../models/FakeUser');
 const { ObjectId } = require('mongodb');
 
 const AllUserShow = async (req, res) => {
     try {
 
-        const data = await User.find()
+        const data = await User.find().sort({
+            created_at: -1,
+          });
+        const fakeUser = await FakeUser.find().sort({
+            created_at: -1,
+          });
+        newData = { data }
+        res.status(201).json({
+            success: true,
+            data: newData,
+            user:data.length + parseInt(fakeUser[0].user) 
+        });
+
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+};
+
+const UserView = async (req, res) => {
+    const userId = req.params.id;
+    try {
+        const query = { _id: ObjectId(userId) };
+        const data = await User.find(query)
         newData = { data }
         res.status(201).json({
             success: true,
@@ -18,12 +44,40 @@ const AllUserShow = async (req, res) => {
 
 
 };
+
 const InactiveUser = async (req, res) => {
     try {
 
         const userId = req.params.id;
-        console.log(userId);
+        // console.log(userId);
         const page = { status: false };
+        const filter = { _id: ObjectId(userId) };
+        const option = { upsert: true };
+
+
+
+        const results = await User.updateOne(filter, page, option);
+        const newData = { results }
+        // console.log(newData)
+        res.status(201).json({
+            success: true,
+            message: "Deposit successfully",
+            data: newData,
+        });
+
+        // console.log(results)
+
+    } catch (error) {
+        console.log(error);
+    }
+
+};
+const activeUser = async (req, res) => {
+    try {
+
+        const userId = req.params.id;
+        // console.log(userId);
+        const page = { status: true };
         const filter = { _id: ObjectId(userId) };
         const option = { upsert: true };
 
@@ -108,6 +162,30 @@ const UserStore = async (req, res) => {
 };
 
 
+const UserDelete = async (req, res) => {
+
+    try {
+
+        const newid = req.params.id;
+
+        const query = { _id: ObjectId(newid) };
+
+        const page = await User.findByIdAndRemove(query);
+
+        res.status(201).json({
+            success: true,
+            message: "User Delete successfully",
+            data: page
+        });
+
+        // res.send(page);
+
+    } catch (error) {
+        console.log(error);
+    }
 
 
-module.exports = { UserStore, AllUserShow, InactiveUser };
+
+};
+
+module.exports = { UserStore, AllUserShow, InactiveUser , UserDelete, activeUser, UserView};

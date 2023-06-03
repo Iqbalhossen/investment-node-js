@@ -2,28 +2,32 @@ const mongoose = require('mongoose'); // Erase if already required
 
 // Declare the Schema of the Mongo model
 var WithdrawSchema = new mongoose.Schema({
-    user_name:{
-        type:String,
-        required:true,
-         
+    user_name: {
+        type: String, 
+        required: true,
+
     },
-    amount:{
-        type:String,
-        required:true,
+    amount: {
+        type: String,
+        required: true,
     },
-    amountWithVat:{
-        type:String,
-        required:true,
+    amountWithVat: {
+        type: String,
+        required: true,
     },
-    wallet:{
-        type:String,
-        required:true,
+    networks: {
+        type: String,
+        required: true,
     },
-    status:{
-        type:Number,
+    wallet: {
+        type: String,
+        required: true,
     },
-    created_at:{
-        type:String,
+    status: {
+        type: Number,
+    },
+    created_at: {
+        type: String,
     },
 });
 

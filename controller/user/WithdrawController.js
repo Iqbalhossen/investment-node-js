@@ -1,5 +1,10 @@
 const WithdrawModel = require('../../models/WithdrawModel');
+const WithdrawEmail = require('../../models/AdminWithdrawEmail');
 const { ObjectId } = require('mongodb');
+
+const {WithdrawMail} = require('../../Commonfile/Mail/AdminMailSend')
+
+
 let moment = require('moment')
 
 const viewWithdraw = async (req, res) => {
@@ -32,15 +37,25 @@ const PendingWithdraw = async (req, res) => {
 
 
 
-        const acceptDeposit = { user_name: userId , status: 0 };
-        const data = await WithdrawModel.find(acceptDeposit)
-        newData = {data}
+        const pendingWithdraw = { user_name: userId , status: 0 };
+        const findPendingWithdraw = await WithdrawModel.find(pendingWithdraw);
+
+        let findPendingWithdrawSum = 0;
+        for (let i = 0; i <= findPendingWithdraw?.length; i++) {
+          if (findPendingWithdraw[i]) {
+            findPendingWithdrawSum += parseFloat(findPendingWithdraw[i]?.amountWithVat);
+          }
+        }
+
+
+        newData = {findPendingWithdraw}
         res.status(201).json({
             success: true,
             data: newData,
+            totalAmount:findPendingWithdrawSum,
         });
 
-        console.log(data)
+        // console.log(findPendingWithdraw)
 
     } catch (error) {
         console.log(error);
@@ -55,15 +70,23 @@ const AcceptWithdraw = async (req, res) => {
 
 
 
-        const acceptDeposit = { user_name: userId , status: 1 };
-        const data = await WithdrawModel.find(acceptDeposit)
+        const acceptWithdraw = { user_name: userId , status: 1 };
+        const data = await WithdrawModel.find(acceptWithdraw);
+
+        let findacceptWithdrawSum = 0;
+        for (let i = 0; i <= data?.length; i++) {
+          if (data[i]) {
+            findacceptWithdrawSum += parseFloat(data[i]?.amountWithVat);
+          }
+        }
         newData = {data}
         res.status(201).json({
             success: true,
             data: newData,
+            totalAmount:findacceptWithdrawSum,
         });
 
-        console.log(data)
+        // console.log(data)
 
     } catch (error) {
         console.log(error);
@@ -74,7 +97,7 @@ const AcceptWithdraw = async (req, res) => {
 
 const StoreWithdraw = async (req, res) => {
     const withdraw = req.body;
-    console.log(withdraw.available);
+    const user_name = req.params.username;
 
     const withdrawWithVat = (withdraw.withdraw_balance - (withdraw.withdraw_balance * 5 )/100);
 
@@ -92,7 +115,7 @@ const StoreWithdraw = async (req, res) => {
 
     if (offDay !== "Sunday" || offDay !== "Saturday") {
 
-        const storeData = { user_name: withdraw.user_name, wallet:withdraw.withdraw_wallet , amount: withdrawWithVat, amountWithVat: withdraw.withdraw_balance, status:0, created_at: withdraw.created_at };
+        const storeData = { user_name: user_name, wallet:withdraw.withdraw_wallet , amount: withdrawWithVat, amountWithVat: withdraw.withdraw_balance, networks: withdraw.networks , status:0, created_at: withdraw.created_at };
 
     // console.log(withdraw.available < (withdraw.withdraw_balance + (withdraw.withdraw_balance * 5 )/100))
 
@@ -100,13 +123,20 @@ const StoreWithdraw = async (req, res) => {
 
         const data = await WithdrawModel.create(storeData);
         const newData = { data }
+
+        const findWithdrawEmail = await WithdrawEmail.find();
+
+        for (const adminEmail of findWithdrawEmail) {
+
+            WithdrawMail(storeData, adminEmail.email);
+        }
+
         res.status(201).json({
             success: true,
             message: "withdraw Pendding!",
             data: newData,
         });
 
-// console.log(newData)
 
     } catch (error) {
         console.log(error);

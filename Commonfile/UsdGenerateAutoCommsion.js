@@ -1,90 +1,84 @@
-const UsdGenerate = require('../models/UsdGenerateModel');
-const UsdGenerateCommision = require('../models/UsdGenerateCommisionModel');
-const { RoiMint } = require('./USDGenerate/RoiMint');
-
-
-// RoiMint("i am Comming2 Roi Mint")
+const UsdGenerate = require("./../models/UsdGenerateModel");
+const UsdGenerateCommision = require("./../models/UsdGenerateCommisionModel");
+const { RoiMint } = require("./USDGenerate/RoiMint");
 
 ///////////////////////////// Usd Generate Commistion Section start
 
+let moment = require("moment");
+const pending = moment().format("MM/DD/YYYY");
 const schedule = require('node-schedule');
-const sameDate = new Date();
-let moment = require('moment')
 
-schedule.scheduleJob('*/60 * * * *', () => {
+schedule.scheduleJob('1 0 * * 0-6', () => {
+   
 
-    async function run() {
+  const UsdGenerateCommsion = async (data) => {
+    try {
+      const offDay = moment().format("dddd");
+  
+  
+      // off Day
+      if (offDay === "Saturday") {
+        // console.log( "Saturday")
+      }
+      // off Day
+      else if (offDay === "Sunday") {
+        // console.log("Sunday")
+      } else {
+        // console.log(" Minnig");
 
-
-
-        try {
-
-            const offDay = moment().format('dddd');
-
-
-
-            if (offDay !== "Sunday" || offDay !== "Saturday") {
-
-
-                const data = await UsdGenerate.find();
-
-                // console.log(data);
-
-
-                let currentData = new Date();
-                // for Loop section Start
-
-                for (const userData of data) {
-
-                    // const TotalCommision = await UsdGenerateCommision.find(setCommision);
-
-                    // let AmountSum = 0
-                    // for (let i = 0; i <= TotalCommision.length; i++) {
-                    //     if (TotalCommision[i]) {
-                    //         AmountSum += parseFloat(TotalCommision[i].commision);
-                    //     }
-
-                    // }
-
-                    // if(userData.total_profit === AmountSum){
-
-                    // }
-
-                    const commision = ((0.5 * parseFloat(userData.package_amount)) / 100);
-                    // console.log(commision)
-
-                    const setCommision = { user_name: userData.user_name, package_id: userData._id, commision: commision, created_at: currentData };
-
-                    const UsdGenerate = await UsdGenerateCommision.create(setCommision);
+        const data = await UsdGenerate.find();
 
 
 
+        let currentData = new Date();
+        // for Loop section Start
 
-                    // console.log(exsitfirst);
-                    // Generation Section start
-                    RoiMint(commision, userData.user_name);
+        for (const userData of data) {
+
+            const commision = ((0.5 * parseFloat(userData.package_amount)) / 100);
+            // console.log(commision)
+
+            const findUsdGenerate = await UsdGenerateCommision.find({package_id: userData._id });
 
 
+            let AmountSum = 0
+            for (let i = 0; i <= findUsdGenerate.length; i++) {
+                if (findUsdGenerate[i]) {
+                    AmountSum += parseFloat(findUsdGenerate[i].commision);
                 }
-
-                // for Loop section End
-
-
 
             }
 
+            if (userData.TotalProfit > AmountSum) {
+
+              const setCommision = { user_name: userData.user_name, package_id: userData._id, commision: commision,time:pending , created_at: currentData };
+
+              const UsdGenerate = await UsdGenerateCommision.create(setCommision);
+
+              console.log(UsdGenerate);
+  
+              // Generation Section start
+              RoiMint(commision, userData.user_name);
 
 
-        } catch (error) {
-            console.log(error);
+            }else{
+              console.log("Amount Full")
+          }
+
+           
+
+
         }
+  
+          
+        
+      }
+    } catch (error) {
+      console.log(error);
     }
+  };
 
-    run().catch(error => console.log(error));
-
-
-
-
+  UsdGenerateCommsion().catch(error => console.log(error));
 
 })
 
@@ -92,14 +86,4 @@ schedule.scheduleJob('*/60 * * * *', () => {
 
 
 
-
 ////////////////////////////// Usd Generate Commistion Section End
-
-
-
-
-
-
-
-
-

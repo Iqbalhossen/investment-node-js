@@ -16,7 +16,10 @@ var UsdGenerateCommisionSchema = new mongoose.Schema({
         required:true,
     },
     status:{
-        type:Boolean,
+        type:String,
+    },
+    time:{
+        type:String,
     },
     created_at: {
         type:Date

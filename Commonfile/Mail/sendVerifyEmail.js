@@ -13,23 +13,23 @@ const sendVerifyEmail = async (name, email, user_id) => {
             secure: false,
             requireTLS: true,
             auth: {
-                user: 'miller5547l@gmail.com',
-                pass: 'iyovthtehuaolhmu'
+                user: 'yumeoneverify@gmail.com',
+                pass: 'qngzqzgdqbmcampi'
             }
         })
 
         const mailOption = {
-            from: 'miller5547l@gmail.com',
+            from: 'yumeoneverify@gmail.com',
             to: email,
-            subject: 'For Acoount Verficition in Yume One',
-            html: '<h3> Hi! ' + name + '</h3>' + ' <p> Please Click Here <a href="https://animated-chaja-d2e0e0.netlify.app/verify/account/' + user_id + user_id + '/' + user_id + '"> Verify </a></p>'
+            subject: 'For Account Verficaition in Yume One',
+            html: '<h3> Hi! ' + name + '</h3>' + ' <p> Please Click Here <a href="https://yumeone.com/verify/account/' + user_id + user_id + '/' + user_id + '"> Verify </a></p>'
         }
 
         transpoter.sendMail(mailOption, function (error, info) {
             if (error) {
                 console.log(error);
             } else {
-                console.log('email send', info.response);
+                // console.log('email send', info.response);
             }
         })
 
@@ -55,23 +55,23 @@ const ForgotPasswordSendEmail = async (name, email, user_id) => {
             secure: false,
             requireTLS: true,
             auth: {
-                user: 'miller5547l@gmail.com',
-                pass: 'iyovthtehuaolhmu'
+                user: 'yumeoneverify@gmail.com',
+                pass: 'qngzqzgdqbmcampi'
             }
         })
 
         const mailOption = {
-            from: 'miller5547l@gmail.com',
+            from: 'yumeoneverify@gmail.com',
             to: email,
             subject: 'Reset Password in Yume One',
-            html: '<h3> Hi! ' + name + '</h3>' + ' <p> Please Click Here <a href="http://localhost:3000/reset/password/' + user_id + user_id + '/' + user_id + '"> Reset Password </a></p>'
+            html: '<h3> Hi! ' + name + '</h3>' + ' <p> Please Click Here <a href="https://yumeone.com/reset/password/' + user_id + user_id + '/' + user_id + '"> Reset Password </a></p>'
         }
 
         transpoter.sendMail(mailOption, function (error, info) {
             if (error) {
                 console.log(error);
             } else {
-                console.log('forgot email send', info.response);
+                // console.log('forgot email send', info.response);
             }
         })
 

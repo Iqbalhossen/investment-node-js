@@ -11,8 +11,9 @@ var depositSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    usd_net:{
+    networks:{
         type:String,
+        required:true,
     },
     transaction_id:{
         type:String,
